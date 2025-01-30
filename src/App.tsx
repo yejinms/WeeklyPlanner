@@ -128,7 +128,7 @@ const TodoList = React.memo(({
   onTodoAdd, 
   onMemoChange,
   onInsightChange 
-}) => (
+}: TodoListProps) => (
   <div className="space-y-2">
     {todos.map((todo) => (
       <TodoItem
@@ -182,7 +182,7 @@ const NavigationIcon = {
   )
 };
 
-const DateNavigator = React.memo(({ weekNumber, weekDates, onPrev, onNext, onToday }) => (
+const DateNavigator = React.memo(({ weekNumber, weekDates, onPrev, onNext, onToday }: DateNavigatorProps) => (
   <div className="flex items-center justify-between space-x-4 bg-gray-700/50 p-4 rounded-xl">
     <div className="flex items-center space-x-4">
       <button onClick={onPrev} className="p-2 bg-gray-600 rounded-full hover:bg-gray-500 transition-colors">
@@ -208,7 +208,7 @@ const DateNavigator = React.memo(({ weekNumber, weekDates, onPrev, onNext, onTod
   </div>
 ));
 
-const HabitTracker = React.memo(({ habits, onNameChange, onCheckChange, onAdd, onRemove }) => (
+const HabitTracker = React.memo(({ habits, onNameChange, onCheckChange, onAdd, onRemove }: HabitTrackerProps) => (
   <div className="space-y-4">
     <div className="grid grid-cols-9 gap-2">
       <div className="col-span-2 text-lg font-bold text-white self-end pb-1">HABITS</div>
