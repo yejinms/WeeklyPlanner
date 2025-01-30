@@ -12,8 +12,18 @@ const PASTEL_COLORS = [
 ];
 
 // Date Utils
+interface WeekInfo {
+  year: number;
+  month: number;
+  weekNumber: number;
+}
+
+interface CountDaysInMonth {
+  [key: string]: number;
+}
+
 const dateUtils = {
-  getWeekInfo: (date) => {
+  getWeekInfo: (date: Date): WeekInfo => {
     // 해당 날짜가 속한 주의 첫째 날(월요일)을 구합니다
     const mondayOfWeek = new Date(date);
     const day = date.getDay();
@@ -55,7 +65,7 @@ const dateUtils = {
     };
   },
   
-  getWeekDates: (year, month, weekNumber) => {
+  getWeekDates: (year: number, month: number, weekNumber: number): Date[] => {
     // 해당 월의 1일을 기준으로 첫 월요일을 찾습니다
     const firstDayOfMonth = new Date(year, month - 1, 1);
     const firstMondayOfMonth = new Date(firstDayOfMonth);
@@ -73,14 +83,14 @@ const dateUtils = {
     });
   },
 
-  formatDate: (date) => {
+  formatDate: (date: Date): string => {
     const year = String(date.getFullYear()).slice(2);
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}/${month}/${day}`;
   },
 
-  generateStateKey: (year, month, week) => {
+  generateStateKey: (year: number, month: number, week: number): string => {
     return `${year}-${month}-${week}`;
   }
 };
@@ -257,7 +267,7 @@ const WeeklyPlanner = () => {
   const [selectedDay, setSelectedDay] = useState(FULL_DAYS[0]);
 
   // Create state management with period keys
-  const createInitialPeriodState = () => {
+  const createInitialPeriodState = (): PeriodsState => {
     const initialState = {};
     const currentKey = dateUtils.generateStateKey(selectedYear, selectedMonth, weekNumber);
     
@@ -274,7 +284,35 @@ const WeeklyPlanner = () => {
     return initialState;
   };
 
-  const [periodData, setPeriodData] = useState(createInitialPeriodState());
+  interface Todo {
+  id: string;
+  checked: boolean;
+  text: string;
+}
+
+interface Habit {
+  name: string;
+  checks: boolean[];
+}
+
+interface PeriodData {
+  habits: Habit[];
+  todos: {
+    [key: string]: Todo[];
+  };
+  memos: {
+    [key: string]: string;
+  };
+  insights: {
+    [key: string]: string;
+  };
+}
+
+interface PeriodsState {
+  [key: string]: PeriodData;
+}
+
+const [periodData, setPeriodData] = useState<PeriodsState>(createInitialPeriodState());
 
   // Get current period key and data
   const currentPeriodKey = dateUtils.generateStateKey(selectedYear, selectedMonth, weekNumber);
