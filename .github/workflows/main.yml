@@ -8,18 +8,19 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4   # v2에서 v4로 업데이트
       
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4  # v2에서 v4로 업데이트
         with:
-          node-version: '18'    # 16에서 18로 변경
+          node-version: '18'
           
       - name: Install dependencies
         run: npm install
         
       - name: Build website
         run: npm run build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
