@@ -1,6 +1,5 @@
 {
   "name": "react-vite-ts",
-  "homepage": "https://yejinms.github.io/WeeklyPlanner/"
   "private": true,
   "version": "0.0.0",
   "type": "module",
